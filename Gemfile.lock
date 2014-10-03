@@ -3,6 +3,7 @@ GEM
   specs:
     cuba (3.3.0)
       rack
+    pg (0.17.1)
     rack (1.5.2)
 
 PLATFORMS
@@ -10,3 +11,4 @@ PLATFORMS
 
 DEPENDENCIES
   cuba
+  pg
