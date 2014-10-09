@@ -73,7 +73,7 @@ Cuba.define do
         test_file.write(model["script"])
         test_file.write("\nSET TERSEO 3\nGO\n\DIVERT output_#{test_file_name}.txt\nSOLUTION\nRVRT\nQUIT")
         test_file.close 
-        output = `../lingo14/bin/linux64/lingo64_14 < test_one.ltf`
+        output = `$HOME/lingo14/bin/linux64/lingo64_14 < test_one.ltf`
         @content = File.read("output_test_one.txt")
         if req.xhr?
           res.write partial('test_ajax',content: @content)
