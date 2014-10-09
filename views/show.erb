@@ -1,0 +1,72 @@
+<style>
+table{width:50%}
+table tbody tr td:first-child{width:25%}
+table tbody tr td:first-child input{width:100%}
+table tbody tr td:nth-child(2) input{width:100%}
+table thead tr th:first-child{width:25%}
+
+</style>
+<section class="content" id="dashboard">
+  <header>
+    <h3>Modelo [Titulo: <%= name %>]</h3>
+  </header>
+
+<div class=""> 
+<form accept-charset="UTF-8" action=<%= "/models/#{name}/process"%> id="new_user" method="post">
+  <div style="margin:0;padding:0;display:inline">
+    <input name="utf8" type="hidden" value="✓">
+    <input name="authenticity_token" type="hidden" value="cER7Ym8h0ZG2ootuPcAqJIb3sH8AKceLbRvszDk/Dq4=">
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre Set</th>
+        <th>Atributos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input id="model_set_name" name="model[set][name]"></td>
+        <td><input id="model_set_atrb" name="model[set][atrb]"></td>
+      </tr> 
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th>Data</th>
+        <th>Valores</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input id="model_data_t_name" name="model[data][t_name]"></td>
+        <td><input id="model_data_values" name="model[data][values]"></td>
+      </tr> 
+    </tbody>
+  </table>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Restricciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td></td>
+        <td><textarea class="text" rows="8" style="width:100%" id="model_constraints" name="model[constraints]"></textarea></td>
+      </tr> 
+    </tbody>
+  </table>
+
+
+
+    <div class="form-actions">
+      <input name="commit" type="submit" value="Iniciar sesión">
+    </div>
+    </div>
+</form>
+</div>
+</section>
+

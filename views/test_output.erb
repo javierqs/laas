@@ -1,0 +1,21 @@
+<style>
+table{width:50%}
+</style>
+<section class="content" id="dashboard">
+  <header class="float-container">
+    <nav class="float left">
+      <h3>Reporte solucion</h3>
+    </nav>
+  </header>
+
+  <table>
+  <% @content.split("\n").each do |line| %>
+    <tr>
+    <%line.split(/\s{2,}/)[1..3].each do |cell|%>
+      <td><%= cell%></td>
+    <%end%>
+    </tr>
+  <%end%>
+  </table>
+</section>
+
