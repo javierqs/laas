@@ -2,7 +2,7 @@ require 'cuba'
 require 'cuba/render'
 require 'erb'
 #require 'sequel'
-require 'pg'
+#require 'pg'
 
 Cuba.plugin Cuba::Render
 
@@ -19,7 +19,7 @@ connection_hash = {
 #Sequel::Model.plugin(:schema)
 #DB = Sequel.postgres()
 
-conn = PG.connect(connection_hash)
+#conn = PG.connect(connection_hash)
 
 class Model
 
