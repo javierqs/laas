@@ -34,12 +34,13 @@ Cuba.define do
 
     on post do
       on "test_output", param('model') do |model|
-        test_file_name = "test_one"
+        file_time = Time.now.to_i
+        test_file_name = "test_one_#{file_time}"
         test_file = File.new(test_file_name + ".ltf", "w")
         test_file.write(model["script"])
         test_file.write("\nSET TERSEO 3\nGO\n\DIVERT output_#{test_file_name}.txt\nSOLUTION\nRVRT\nQUIT")
         test_file.close 
-        cmd = "$HOME/lingo14/bin/linux64/lingo64_14 < test_one.ltf"
+        cmd = "$HOME/lingo14/bin/linux64/lingo64_14 < #{test_file_name}.ltf"
         i, o, e, w = Open3.popen3(cmd)
         buf = ""
         error = false
@@ -54,7 +55,9 @@ Cuba.define do
         if error
           @content = ["Script may have errors"]
         else
-          @content = File.read("output_test_one.txt")
+          @content = File.read("output_#{test_file_name}.txt")
+          File.delete("output_#{test_file_name}.txt")
+          File.delete(test_file_name+".ltf")
         end
 
         if req.xhr?
