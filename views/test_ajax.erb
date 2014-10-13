@@ -7,12 +7,18 @@
     <tr>
   </thead>
   <tbody>
+  <% if @content.size == 1 %>
+    <tr><td>Ha ocurrido un error, revisar el contenido.</td></tr>
+  <% elsif @content.size==0%>
+    <tr><td>Ha ocurrido un error, revisar el contenido.</td></tr>
+  <%else%>
   <% @content.split("\n").each do |line| %>
     <tr>
     <%line.split(/\s{2,}/)[1..3].each do |cell|%>
       <td><%= cell%></td>
     <%end%>
     </tr>
+  <%end%>
   <%end%>
   </tbody>
 </table>

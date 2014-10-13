@@ -23,7 +23,30 @@ textarea{width:100%}
     </thead>
     <tbody>
       <tr>
-        <td><textarea id="model_script" name="model[script]" rows="20"></textarea></td>
+        <td>
+          <textarea id="model_script" name="model[script]" rows="20">
+!Este es un problema de ejemplo
+ Una empresa produce 2 tipos de computadores
+   Standard (Precio: $100) 
+   Turbo    (Precio: $150)
+ Se puede producir:
+   Standard : 100 por dia
+   Turbo    : 120 por dia
+ Hay un total de 160 horas disponibles de 
+ trabajo por dia y se emplean
+   Standard : 1 hora de trabajo
+   Turbo    : 2 horas de trabajo
+ Se pide obtener la combinacion de computadores 
+ de manera que se maximice el beneficio de la empresa;
+
+MODEL:
+  MAX = 100 * STANDARD + 150 * TURBO;
+  STANDARD < 100;
+  TURBO < 120;
+  STANDARD + 2 * TURBO < 160;
+END
+          </textarea>
+        </td>
       </tr> 
     </tbody>
   </table>

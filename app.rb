@@ -1,8 +1,7 @@
 require 'cuba'
 require 'cuba/render'
-require 'erb'
-#require 'sequel'
-#require 'pg'
+require 'tilt/erb'
+require 'open3'
 
 Cuba.plugin Cuba::Render
 
@@ -16,43 +15,10 @@ connection_hash = {
                     password: 'lingopwd' 
                   }
 
-#Sequel::Model.plugin(:schema)
-#DB = Sequel.postgres()
-
-#conn = PG.connect(connection_hash)
-
-class Model
-
-end
-
-@set_name = "TASKS"
-@set_attributes = " TIME, ES, LS, SLACK"
-
-@table_columns = "TASKS"
-@current_file_name = "session_n1"
-
-
-
 Cuba.define do
+  
   on root do
     res.write view('home')
-=begin
-    out_file = File.new(query_result_filename, "w")
-    lingo_script_file = File.new(lingo_script_filename, "w")
-
-    conn.exec(main_query) do |result|
-      puts "creating txt file"
-      result.each do |row|
-        out_file.write(row.values_at(*c).push(" ~\n").join(" "))
-      end
-    end
-    
-    out_file.close
-    source = File.expand_path("/home/j/laas/templates/lingo_script.lng")
-
-    lingo_script_file.write(ERB.new(::File.binread(source)).result)
-    lingo_script_file.close
-=end
   end
 
   on 'models' do
@@ -73,8 +39,24 @@ Cuba.define do
         test_file.write(model["script"])
         test_file.write("\nSET TERSEO 3\nGO\n\DIVERT output_#{test_file_name}.txt\nSOLUTION\nRVRT\nQUIT")
         test_file.close 
-        output = `$HOME/lingo14/bin/linux64/lingo64_14 < test_one.ltf`
-        @content = File.read("output_test_one.txt")
+        cmd = "$HOME/lingo14/bin/linux64/lingo64_14 < test_one.ltf"
+        i, o, e, w = Open3.popen3(cmd)
+        buf = ""
+        error = false
+        until o.eof? or error do
+          buf << o.read_nonblock(50)
+          if buf[-50..-1].include?(" ?"*24) or buf[-50..-1].include?(" :"*24)
+            Process.kill 9, w.pid
+            error = true
+          end
+        end
+       
+        if error
+          @content = ["Script may have errors"]
+        else
+          @content = File.read("output_test_one.txt")
+        end
+
         if req.xhr?
           res.write partial('test_ajax',content: @content)
         else
